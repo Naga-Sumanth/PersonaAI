@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Profile - PersonaAI</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <nav class="navbar glass-panel">
+        <a href="/" class="nav-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="/static/logo.png" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" alt="Logo"> PersonaAI
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html" class="active">Upload Profile</a></li>
+            
+            <li><a href="/interview.html">Interview Prep</a></li>
+            <li><a href="/resume.html">Twin Insights</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;"><button id="nav-theme-toggle" class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; justify-content: center; align-items: center; display: flex;" title="Toggle Theme" type="button"><i data-lucide="sun" class="sun-icon" style="width:20px; height:20px;"></i><i data-lucide="moon" class="moon-icon" style="width:20px; height:20px; display: none;"></i></button><a href="/upload.html" class="btn nav-btn btn-spotlight"><i data-lucide="plus-circle"></i> Create Twin</a></div>
+    </nav>
+
+    <div class="main-container" style="max-width: 760px; margin: 1rem auto;">
+        <div class="glass-panel card-spotlight" style="padding: 1.8rem 2.2rem; text-align: center;">
+            <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <i data-lucide="file-up" style="color: var(--primary);"></i> Upload Your Profile
+            </h1>
+            <p style="color: var(--text-secondary); margin-bottom: 1.2rem; font-size: 0.95rem;">Upload your Resume (PDF/DOCX), project summaries, certificates, or text files to train your Digital Twin model.</p>
+            
+            <!-- Drag & Drop Uploader -->
+            <div id="dropzone" class="upload-container glass-panel" style="padding: 2.2rem 1.8rem;">
+                <div class="upload-icon" style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                    <i data-lucide="upload-cloud" style="width: 40px; height: 40px; color: var(--text-secondary); opacity: 0.85;"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem;">
+                    Drag & drop file here or <span style="color: var(--primary); font-weight: 600; cursor: pointer; text-decoration: none;">browse</span>
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.82rem;">Supports PDF, DOCX, TXT, JSON, MD, PNG, JPG — Max 50 MB</p>
+                <input type="file" id="file-input" class="file-input" accept=".pdf,.docx,.txt,.json,.md,.png,.jpg,.jpeg">
+                
+                <div id="progress-container" class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div style="text-align: left; margin-top: 1.5rem;">
+                <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i data-lucide="folder-check" style="color: var(--success);"></i> Uploaded Profile Documents
+                </h3>
+                <div id="uploaded-files-list" class="files-list">
+                    <!-- Files will be dynamically populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="toast-container"></div>
+    
+    <script src="/static/components/script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

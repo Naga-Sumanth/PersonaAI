@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PersonaAI</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <nav class="navbar glass-panel">
+        <a href="/" class="nav-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="/static/logo.png" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" alt="Logo"> PersonaAI
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html">Upload Profile</a></li>
+            
+            <li><a href="/interview.html">Interview Prep</a></li>
+            <li><a href="/resume.html">Twin Insights</a></li>
+            <li><a href="/settings.html" class="active">Settings</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;"><button id="nav-theme-toggle" class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; justify-content: center; align-items: center; display: flex;" title="Toggle Theme" type="button"><i data-lucide="sun" class="sun-icon" style="width:20px; height:20px;"></i><i data-lucide="moon" class="moon-icon" style="width:20px; height:20px; display: none;"></i></button><a href="/upload.html" class="btn nav-btn btn-spotlight"><i data-lucide="plus-circle"></i> Create Twin</a></div>
+    </nav>
+
+    <div class="main-container" style="max-width: 800px; margin: auto; display: flex; flex-direction: column; justify-content: center; padding-top: 1.5rem; padding-bottom: 2rem;">
+        <div class="glass-panel card-spotlight" style="padding: 2.5rem 3rem; overflow: visible !important;">
+            <h1 style="font-size: 2.3rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <i data-lucide="sliders" style="color: var(--primary);"></i> Configurations Settings
+            </h1>
+            <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">Manage application styling, active LLM engines, API key integrations, and token settings.</p>
+
+            <form id="settings-form" class="settings-form" style="padding: 0; background: none; border: none; box-shadow: none;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.2rem;">
+                    <!-- Theme selection -->
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="theme">UI Theme Mode</label>
+                        <select id="theme" class="form-control">
+                            <option value="dark">Dark Glassmorphic</option>
+                            <option value="light">Light Purple Mode</option>
+                        </select>
+                    </div>
+
+                    <!-- Provider selection -->
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="ai_provider">Active AI Provider</label>
+                        <select id="ai_provider" class="form-control">
+                            <option value="gemini">Google Gemini (Gemini 2.5 Flash)</option>
+                            <option value="groq">Groq Inference Engine</option>
+                            <option value="openrouter">OpenRouter Engine</option>
+                            <option value="huggingface">HuggingFace API</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- API Keys -->
+                <div class="form-group">
+                    <label for="gemini_api_key">Gemini API Key</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="password" id="gemini_api_key" class="form-control" placeholder="Enter Google Gemini API Key" style="padding-right: 2.8rem; width: 100%;">
+                        <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('gemini_api_key', this)" style="position: absolute; right: 12px; background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+                            <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="groq_api_key">Groq API Key</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="password" id="groq_api_key" class="form-control" placeholder="Enter Groq API Key" style="padding-right: 2.8rem; width: 100%;">
+                        <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('groq_api_key', this)" style="position: absolute; right: 12px; background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+                            <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="openrouter_api_key">OpenRouter API Key</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="password" id="openrouter_api_key" class="form-control" placeholder="Enter OpenRouter API Key" style="padding-right: 2.8rem; width: 100%;">
+                        <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('openrouter_api_key', this)" style="position: absolute; right: 12px; background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+                            <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="huggingface_api_key">HuggingFace Token</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="password" id="huggingface_api_key" class="form-control" placeholder="Enter HuggingFace API Token" style="padding-right: 2.8rem; width: 100%;">
+                        <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('huggingface_api_key', this)" style="position: absolute; right: 12px; background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+                            <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Temperature slider -->
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between;">
+                        <label for="temperature">Creativity (Temperature)</label>
+                        <span id="temp-val" style="color: var(--primary); font-weight: 600;">0.7</span>
+                    </div>
+                    <input type="range" id="temperature" min="0.0" max="1.0" step="0.05" value="0.7" class="form-control" oninput="document.getElementById('temp-val').innerText = this.value">
+                </div>
+
+                <!-- Max tokens -->
+                <div class="form-group">
+                    <label for="max_tokens">Max Generation Tokens</label>
+                    <input type="number" id="max_tokens" class="form-control" value="1024" min="256" max="4096">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem; width: 100%; justify-content: center; gap: 0.5rem;"><i data-lucide="save"></i> Save Configurations</button>
+            </form>
+
+            <div class="glass-panel" style="margin-top: 2rem; border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.04); padding: 1.5rem; border-radius: var(--card-radius); display: flex; justify-content: space-between; align-items: center;">
+                <div style="text-align: left;">
+                    <strong style="color: var(--danger); display: flex; align-items: center; gap: 4px; margin-bottom: 0.2rem;"><i data-lucide="alert-triangle"></i> Danger Zone</strong>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Clear all parsed knowledge databases and physical profile documents.</span>
+                </div>
+                <button id="clear-all-data-btn" class="btn btn-secondary" style="border-color: var(--danger); color: var(--danger); display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; height: fit-content; border-radius: 20px;"><i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i> Reset Database</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="toast-container"></div>
+    
+    <script src="/static/components/script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonaAI - Build Your AI Digital Twin</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar glass-panel">
+        <a href="/" class="nav-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="/static/logo.png" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" alt="Logo"> PersonaAI
+        </a>
+        <ul class="nav-links">
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/upload.html">Upload Profile</a></li>
+            
+            <li><a href="/interview.html">Interview Prep</a></li>
+            <li><a href="/resume.html">Twin Insights</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;"><button id="nav-theme-toggle" class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; justify-content: center; align-items: center; display: flex;" title="Toggle Theme" type="button"><i data-lucide="sun" class="sun-icon" style="width:20px; height:20px;"></i><i data-lucide="moon" class="moon-icon" style="width:20px; height:20px; display: none;"></i></button><a href="/upload.html" class="btn nav-btn btn-spotlight"><i data-lucide="plus-circle"></i> Create Twin</a></div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1>Build Your <span class="cursive-text">AI Digital Twin</span></h1>
+            <p>Upload your profile context to design an AI replica that answers recruiter questions, explains complex project architectures, and helps you rehearse target interviews.</p>
+            <div class="cta-group">
+                <a href="/upload.html" class="btn btn-primary"><i data-lucide="rocket"></i> Get Started Free</a>
+                <button class="btn btn-secondary btn-spotlight" onclick="document.getElementById('floating-chat-btn').click();" type="button"><i data-lucide="message-circle"></i> Chat With Twin</button>
+            </div>
+        </header>
+
+        <!-- Quick Generator Tool -->
+        <section class="glass-panel card-spotlight" style="padding: 3rem; margin: 2rem 0; text-align: center; overflow: visible !important;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 0.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <i data-lucide="speech" style="color: var(--primary);"></i> Self Introduction Generator
+            </h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Quickly tune your elevator pitch using your digital twin profile.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem; max-width: 800px; margin: 0 auto 1.5rem; align-items: flex-end; text-align: left;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label style="color: var(--text-secondary); font-weight: 600; text-align: left; margin-bottom: 0.5rem;">Introduction Type</label>
+                    <select id="intro-type" class="form-control">
+                        <option value="Technical">Technical</option>
+                        <option value="HR">HR / Non-Technical</option>
+                        <option value="General">General Elevator Pitch</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label style="color: var(--text-secondary); font-weight: 600; text-align: left; margin-bottom: 0.5rem;">Duration</label>
+                    <select id="intro-length" class="form-control">
+                        <option value="30 seconds">30 Seconds</option>
+                        <option value="1 minute">1 Minute</option>
+                        <option value="Detailed">Detailed Overview</option>
+                    </select>
+                </div>
+                <button id="generate-home-intro-btn" class="btn btn-primary" style="margin: 0; height: 42px; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap;"><i data-lucide="wand-2" style="width: 16px; height: 16px;"></i> Generate Introduction</button>
+            </div>
+            
+            <div id="home-intro-result" style="margin-top: 1.5rem;"></div>
+        </section>
+
+        <!-- Features grid -->
+        <section class="features-grid">
+            <div class="feature-card glass-panel">
+                <div class="feature-icon"><i data-lucide="folder-open" style="width: 40px; height: 40px;"></i></div>
+                <h3>Profile Builder</h3>
+                <p>Drag and drop resumes, projects, and portfolios. Our RAG engine extracts and structures details into a context repository.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon"><i data-lucide="bot" style="width: 40px; height: 40px;"></i></div>
+                <h3>Conversational Twin</h3>
+                <p>An intelligent agent that answers exactly like you. Share with interviewers to demo your capabilities dynamically.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon"><i data-lucide="award" style="width: 40px; height: 40px;"></i></div>
+                <h3>Interview Prep</h3>
+                <p>Interactive simulations featuring behavioral, HR, and technical sessions. Receive instant score breakdowns and advice.</p>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section class="glass-panel card-spotlight" style="padding: 3rem; text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 2.5rem; font-weight: 800;">Workflow Blueprint</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                <div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">1</div>
+                    <h4 style="margin: 0.8rem 0 0.3rem;">Upload Documents</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Submit resumes, projects, and certificates.</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">2</div>
+                    <h4 style="margin: 0.8rem 0 0.3rem;">Extract Context</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Parsed text builds a strict local knowledge library.</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">3</div>
+                    <h4 style="margin: 0.8rem 0 0.3rem;">Build Twin Prompt</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Dynamic prompt architecture encapsulates context.</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">4</div>
+                    <h4 style="margin: 0.8rem 0 0.3rem;">Twin Response</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">AI responds instantly, strictly within guardrails.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--text-secondary); border-top: 1px solid var(--glass-border); margin-top: auto;">
+        <p>&copy; 2026 PersonaAI. Built for next-generation developer portfolios.</p>
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <!-- Backdrop Overlay for Centered Modal -->
+    <div id="chat-popup-overlay" class="chat-popup-overlay"></div>
+
+    <!-- Centered Chat Popup Modal -->
+    <div id="chat-popup-modal" class="glass-panel chat-popup-centered">
+        <!-- Modal Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.15);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="/static/logo.png" style="width: 24px; height: 24px; border-radius: 6px;" alt="Logo">
+                <strong class="cursive-text" style="color: var(--text-primary); font-size: 1.5rem; line-height: 1;">PersonaAI Twin</strong>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <button id="save-chat-popup-btn" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; margin-right: 0.8rem;" title="Save Conversation"><i data-lucide="download" style="width: 18px; height: 18px;"></i></button>
+                <button id="clear-chat-popup-btn" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; margin-right: 0.8rem;" title="Clear Conversation"><i data-lucide="trash-2" style="width: 18px; height: 18px; color: var(--danger);"></i></button>
+                <button id="close-chat-popup" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center;"><i data-lucide="x" style="width: 18px; height: 18px;"></i></button>
+            </div>
+        </div>
+
+        <!-- Messages List -->
+        <div id="chat-popup-messages" style="flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
+            <div class="message assistant" style="max-width: 85%; padding: 0.8rem 1.2rem; border-radius: 16px; border-bottom-left-radius: 4px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); line-height: 1.5; text-align: left;">
+                Hello! I am your AI Digital Twin. Ask me anything about your uploaded profile, experience, or projects.
+            </div>
+        </div>
+
+        <!-- Suggested Questions Carousel -->
+        <div class="suggested-qs-container">
+            <button type="button" class="suggested-q-btn" onclick="sendSuggestedQuestion('Tell me about your projects')">Tell me about your projects</button>
+            <button type="button" class="suggested-q-btn" onclick="sendSuggestedQuestion('What is your tech stack?')">What is your tech stack?</button>
+            <button type="button" class="suggested-q-btn" onclick="sendSuggestedQuestion('Are you ready for interviews?')">Are you ready for interviews?</button>
+            <button type="button" class="suggested-q-btn" onclick="sendSuggestedQuestion('What is your work experience?')">What is your work experience?</button>
+        </div>
+        
+        <!-- Input Area -->
+        <form id="chat-popup-form" style="padding: 1rem; border-top: 1px solid var(--glass-border); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.1);">
+            <input type="text" id="chat-popup-input" class="form-control" placeholder="Ask your Twin..." style="flex: 1; border-radius: 20px; padding: 0.6rem 1.2rem; font-size: 0.9rem;" autocomplete="off">
+            <button type="submit" class="btn btn-primary" style="padding: 0; border-radius: 20px; justify-content: center; height: 38px; width: 38px; display: flex; align-items: center;"><i data-lucide="send-horizontal" style="width: 16px; height: 16px;"></i></button>
+        </form>
+    </div>
+
+    <button id="floating-chat-btn" class="floating-chat-widget" title="Open AI Chat" type="button">
+        <i data-lucide="message-square" style="width: 28px; height: 28px;"></i>
+    </button>
+
+    <script src="/static/components/script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

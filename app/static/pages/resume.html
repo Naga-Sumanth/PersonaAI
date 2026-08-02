@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twin Insights - PersonaAI</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar glass-panel">
+        <a href="/" class="nav-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="/static/logo.png" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" alt="Logo"> PersonaAI
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html">Upload Profile</a></li>
+            
+            <li><a href="/interview.html">Interview Prep</a></li>
+            <li><a href="/resume.html" class="active">Twin Insights</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;"><button id="nav-theme-toggle" class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; justify-content: center; align-items: center; display: flex;" title="Toggle Theme" type="button"><i data-lucide="sun" class="sun-icon" style="width:20px; height:20px;"></i><i data-lucide="moon" class="moon-icon" style="width:20px; height:20px; display: none;"></i></button><a href="/upload.html" class="btn nav-btn btn-spotlight"><i data-lucide="plus-circle"></i> Create Twin</a></div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Tabs Selector -->
+        <div class="profile-tabs glass-panel" style="padding: 0.5rem 1rem;">
+            <button class="tab-btn active" data-tab="tab-summary"><i data-lucide="bar-chart-3"></i> Profile Insights</button>
+            <button class="tab-btn" data-tab="tab-explainer"><i data-lucide="layers"></i> Project Explainer</button>
+            <button class="tab-btn" data-tab="tab-career"><i data-lucide="compass"></i> Career Advisor</button>
+            <button class="tab-btn" data-tab="tab-branding"><i data-lucide="award"></i> Branding Content</button>
+        </div>
+
+        <!-- TAB 1: Profile Insights -->
+        <div id="tab-summary" class="tab-content active">
+            <div id="summary-insights-container" style="text-align: center; padding: 2rem 0;">
+                <span class="spinner"></span> Gathering profile insights...
+            </div>
+        </div>
+
+        <!-- TAB 2: Project Explainer -->
+        <div id="tab-explainer" class="tab-content">
+            <!-- Setup View -->
+            <div id="explainer-setup-view" class="glass-panel card-spotlight" style="padding: 2rem; text-align: center; max-width: 600px; margin: 0 auto; overflow: visible !important;">
+                <h2 style="font-weight: 800; font-size: 1.6rem; margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="rocket" style="color: var(--primary);"></i> AI Project Explainer
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.2rem; font-size: 0.95rem; line-height: 1.4;">Select an identified project to generate Problem Statement, Architecture, Tech Stack, Challenges, and Future Scope details.</p>
+                
+                <div class="form-group" style="max-width: 400px; margin: 0 auto 1.2rem; text-align: left;">
+                    <label style="font-weight: 500; color: var(--text-secondary); font-size: 0.9rem;">Select Project</label>
+                    <select id="project-select" class="form-control" style="padding: 0.7rem 1rem;">
+                        <option value="">-- Choose a Project --</option>
+                    </select>
+                </div>
+                <button id="explain-project-btn" class="btn btn-primary" style="margin-bottom: 0;"><i data-lucide="wand"></i> Explain Project Architecture</button>
+            </div>
+            
+            <!-- Active View -->
+            <div id="explainer-active-view" style="display: none; max-width: 900px; margin: 0 auto;">
+                <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                    <button class="btn btn-secondary" onclick="exitExplainerActiveView()" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 30px; margin: 0;">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Projects
+                    </button>
+                    <h2 style="font-weight: 800; font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="rocket" style="color: var(--primary); width: 22px; height: 22px;"></i> Explainer View
+                    </h2>
+                </div>
+                <div id="project-explanation-output" style="text-align: left;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Career Advisor -->
+        <div id="tab-career" class="tab-content">
+            <!-- Setup View -->
+            <div id="career-setup-view" class="glass-panel card-spotlight" style="padding: 2rem; text-align: center; max-width: 600px; margin: 0 auto;">
+                <h2 style="font-weight: 800; font-size: 1.6rem; margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="trending-up" style="color: var(--secondary);"></i> AI Career Advisor
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.2rem; font-size: 0.95rem; line-height: 1.4;">Analyze your profile context to evaluate matching career roles, missing skill sets, and recommended learning pathways.</p>
+                
+                <button id="generate-career-btn" class="btn btn-primary" style="margin-bottom: 0;"><i data-lucide="map"></i> Formulate Career Strategy</button>
+            </div>
+            
+            <!-- Active View -->
+            <div id="career-active-view" style="display: none; max-width: 900px; margin: 0 auto;">
+                <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                    <button class="btn btn-secondary" onclick="exitCareerActiveView()" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 30px; margin: 0;">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Options
+                    </button>
+                    <h2 style="font-weight: 800; font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="trending-up" style="color: var(--secondary); width: 22px; height: 22px;"></i> Career Strategy Report
+                    </h2>
+                </div>
+                <div id="career-output" style="text-align: left;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Branding/LinkedIn Content -->
+        <div id="tab-branding" class="tab-content">
+            <!-- Setup View -->
+            <div id="branding-setup-view" class="glass-panel card-spotlight" style="padding: 2rem; text-align: center; max-width: 550px; margin: 0 auto;">
+                <h2 style="font-weight: 800; font-size: 1.6rem; margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="file-signature" style="color: var(--success);"></i> LinkedIn & Achievement Generator
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.2rem; font-size: 0.95rem; line-height: 1.4;">Draft professional summaries, portfolios about descriptions, or resumes summaries powered by Digital Twin achievements.</p>
+                
+                <div style="display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.2rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary brand-opt selected" style="padding: 0.6rem 1rem; font-size: 0.85rem;" data-platform="LinkedIn Summary"><i data-lucide="linkedin"></i> LinkedIn Summary</button>
+                    <button class="btn btn-secondary brand-opt" style="padding: 0.6rem 1rem; font-size: 0.85rem;" data-platform="Resume Summary"><i data-lucide="file-text"></i> Resume Summary</button>
+                    <button class="btn btn-secondary brand-opt" style="padding: 0.6rem 1rem; font-size: 0.85rem;" data-platform="Portfolio About"><i data-lucide="user"></i> Portfolio About</button>
+                    <button class="btn btn-secondary brand-opt" style="padding: 0.6rem 1rem; font-size: 0.85rem;" data-platform="Professional Bio"><i data-lucide="book-open"></i> Professional Bio</button>
+                </div>
+                
+                <button id="generate-branding-btn" class="btn btn-primary" style="margin-bottom: 0;"><i data-lucide="sparkles"></i> Generate Content</button>
+            </div>
+            
+            <!-- Active View -->
+            <div id="branding-active-view" style="display: none; max-width: 750px; margin: 0 auto;">
+                <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                    <button class="btn btn-secondary" onclick="exitBrandingActiveView()" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 30px; margin: 0;">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Options
+                    </button>
+                    <h2 style="font-weight: 800; font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="file-signature" style="color: var(--success); width: 22px; height: 22px;"></i> Generated Branding Copy
+                    </h2>
+                </div>
+                <div id="branding-output" style="text-align: left;"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="toast-container"></div>
+    
+    <script src="/static/components/script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
